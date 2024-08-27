@@ -6,6 +6,7 @@
       "possesseur": { "nom": "John Doe" },
       "possessions": [
         {
+          "id": "1",
           "possesseur": { "nom": "John Doe" },
           "libelle": "MacBook Pro",
           "valeur": 4000000,
@@ -14,6 +15,7 @@
           "tauxAmortissement": 5
         },
         {
+          "id": "2",
           "possesseur": { "nom": "John Doe" },
           "libelle": "Alternance",
           "valeur": 0,
@@ -24,6 +26,7 @@
           "valeurConstante": 500000
         },
         {
+          "id": "3",
           "possesseur": { "nom": "John Doe" },
           "libelle": "Survie",
           "valeur": 0,
@@ -34,6 +37,7 @@
           "valeurConstante": -300000
         },
         {
+          "id": "4",
           "possesseur": { "nom": "John Doe" },
           "libelle": "MacBook Pro",
           "valeur": 4000000,
@@ -42,6 +46,7 @@
           "tauxAmortissement": 5
         },
         {
+          "id": "5",
           "possesseur": { "nom": "John Doe" },
           "libelle": "Alternance",
           "valeur": 0,
@@ -52,6 +57,7 @@
           "valeurConstante": 500000
         },
         {
+          "id": "6",
           "possesseur": { "nom": "John Doe" },
           "libelle": "Survie",
           "valeur": 0,

@@ -1,39 +1,41 @@
+// BackEnd/server.js
+
 import express from 'express';
-import path from 'path';
-import fs from 'fs/promises';
 import cors from 'cors';
+import fs from 'fs';
+import path from 'path';
 
-// Créez une instance de l'application Express
 const app = express();
-const port = 3000; // Ou tout autre port que vous préférez
-
-// Configurez CORS
+app.use(express.json());
 app.use(cors());
 
-// Fonction pour lire le fichier JSON
-const getData = async () => {
-  const filePath = path.resolve('data.json'); // Assurez-vous que le chemin est correct
-  const data = await fs.readFile(filePath, 'utf8');
-  return JSON.parse(data);
-};
+// Chemin absolu vers le fichier JSON
+const dataPath = path.join(process.cwd(), 'data.json');
 
-// Route pour afficher les possessions
-app.get('/possession', async (req, res) => {
-  try {
-    const data = await getData();
-    const patrimoine = data.find(item => item.model === 'Patrimoine');
-    
-    if (patrimoine && patrimoine.data && patrimoine.data.possessions) {
-      res.json(patrimoine.data.possessions);
-    } else {
-      res.status(404).json({ message: 'Aucune possession trouvée' });
-    }
-  } catch (error) {
-    res.status(500).json({ message: 'Erreur lors de la lecture des données', error: error.message });
+// Lire le fichier JSON
+let possessions = JSON.parse(fs.readFileSync(dataPath, 'utf8')).find(item => item.model === 'Patrimoine')?.data.possessions || [];
+
+app.get('/possession', (req, res) => {
+  res.json(possessions);
+});
+
+app.put('/possession/:id', (req, res) => {
+  const { id } = req.params;
+  const updatedData = req.body;
+  const index = possessions.findIndex(possession => possession.id === id);
+
+  if (index === -1) {
+    return res.status(404).json({ error: 'Possession not found' });
   }
+
+  possessions[index] = { ...possessions[index], ...updatedData };
+  res.json(possessions[index]);
 });
 
-// Démarrez le serveur
-app.listen(port, () => {
-  console.log(`Serveur en écoute sur http://localhost:${port}`);
+app.delete('/possession/:id', (req, res) => {
+  const { id } = req.params;
+  possessions = possessions.filter(possession => possession.id !== id);
+  res.status(204).end();
 });
+
+app.listen(3000, () => console.log('Server running on port 3000'));

@@ -12,7 +12,6 @@ const Possession = () => {
   const [editData, setEditData] = useState(null);
 
   useEffect(() => {
-    // Remplacez l'URL par l'adresse de votre API Express
     axios.get('http://localhost:3000/possession')
       .then(response => {
         setPossessions(response.data);
@@ -22,13 +21,11 @@ const Possession = () => {
       });
   }, []);
 
-  // Fonction pour ouvrir le modal avec les données de l'élément sélectionné
   const handleEdit = (possession) => {
     setEditData(possession);
     setShowModal(true);
   };
 
-  // Fonction pour supprimer une possession
   const handleDelete = (id) => {
     axios.delete(`http://localhost:3000/possession/${id}`)
       .then(() => {
@@ -39,7 +36,6 @@ const Possession = () => {
       });
   };
 
-  // Fonction pour enregistrer les modifications
   const handleSaveChanges = () => {
     axios.put(`http://localhost:3000/possession/${editData.id}`, editData)
       .then(() => {
@@ -53,7 +49,6 @@ const Possession = () => {
       });
   };
 
-  // Fonction pour gérer les changements de données dans le modal
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEditData(prevData => ({
@@ -79,8 +74,8 @@ const Possession = () => {
           </tr>
         </thead>
         <tbody>
-          {possessions.map((possession, index) => (
-            <tr key={index}>
+          {possessions.map((possession) => (
+            <tr key={possession.id}>
               <td>{possession.libelle}</td>
               <td>{possession.valeur}</td>
               <td>{new Date(possession.dateDebut).toLocaleDateString()}</td>
@@ -101,7 +96,6 @@ const Possession = () => {
         </tbody>
       </Table>
 
-      {/* Modal pour modifier les données */}
       {editData && (
         <Modal show={showModal} onHide={() => setShowModal(false)}>
           <Modal.Header closeButton>
