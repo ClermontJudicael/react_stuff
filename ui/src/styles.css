@@ -1,0 +1,23 @@
+/* styles.css */
+.table-custom {
+    border: 2px solid white; /* Bordure blanche autour de la table */
+    border-radius: 0.5rem; /* Coins arrondis */
+    overflow: hidden; /* Assure que les coins arrondis sont visibles */
+  }
+  
+  .table-custom th, .table-custom td {
+    padding: 1rem; /* Plus d'espacement autour du texte */
+  }
+  
+  .form-control, .form-control select {
+    margin-bottom: 1rem; /* Espacement en dessous des champs de formulaire */
+  }
+  
+  .date-picker-container {
+    margin-bottom: 1rem; /* Espacement en dessous des sélecteurs de date */
+  }
+  
+  h2 {
+    margin-bottom: 2rem; /* Espacement sous le titre */
+  }
+  
