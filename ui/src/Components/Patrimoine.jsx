@@ -1,13 +1,24 @@
-// Components/Patrimoine.jsx
-import React from 'react';
+// ui/src/pages/Patrimoine.jsx
 
-function Patrimoine() {
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import PossessionsChart from './Chart';
+
+const Patrimoine = () => {
+  const [possessions, setPossessions] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:3000/possession')
+      .then(response => setPossessions(response.data))
+      .catch(error => console.error('Erreur lors de la récupération des données:', error));
+  }, []);
+
   return (
     <div>
-      <h2>Patrimoine Page</h2>
-      <p>This is the Patrimoine page.</p>
+      <h1>Possession Chart</h1>
+      <PossessionsChart possessions={possessions} />
     </div>
   );
-}
+};
 
 export default Patrimoine;

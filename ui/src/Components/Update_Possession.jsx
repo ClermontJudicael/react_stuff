@@ -5,7 +5,7 @@ function PossessionUpdate() {
   return (
     <div>
       <h2>Update Possession</h2>
-      <p>Hello world</p>
+      <p>This is kinda useless since we can update directly in the table</p>
     </div>
   );
 }
