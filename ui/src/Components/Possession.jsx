@@ -4,12 +4,14 @@ import React, { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import { Button, Form, Modal } from 'react-bootstrap';
 import axios from 'axios';
-import '../styles.css'; // Assurez-vous d'importer le fichier CSS
+import { useNavigate } from 'react-router-dom';
+import '../styles.css'; 
 
 const Possession = () => {
   const [possessions, setPossessions] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [editData, setEditData] = useState(null);
+  const navigate = useNavigate(); // Hook pour la navigation
 
   useEffect(() => {
     axios.get('http://localhost:3000/possession')
@@ -60,6 +62,9 @@ const Possession = () => {
   return (
     <div>
       <h2>Liste des Possessions</h2>
+      <Button variant="primary" onClick={() => navigate('/possession/create')}>
+        Ajouter
+      </Button>
       <Table striped bordered hover className="mt-3 table-custom">
         <thead>
           <tr>
