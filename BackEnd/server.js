@@ -4,38 +4,75 @@ import express from 'express';
 import cors from 'cors';
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Obtenir le répertoire du module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
+const port = 3000;
+
+app.use(cors()); // Ajoutez CORS pour permettre les requêtes depuis d'autres origines
 app.use(express.json());
-app.use(cors());
 
-// Chemin absolu vers le fichier JSON
-const dataPath = path.join(process.cwd(), 'data.json');
+const dataFilePath = path.join(__dirname, 'data.json');
 
-// Lire le fichier JSON
-let possessions = JSON.parse(fs.readFileSync(dataPath, 'utf8')).find(item => item.model === 'Patrimoine')?.data.possessions || [];
+// Fonction pour lire les données
+const readData = () => {
+  const data = fs.readFileSync(dataFilePath);
+  return JSON.parse(data);
+};
 
+// Fonction pour écrire les données
+const writeData = (data) => {
+  fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2));
+};
+
+// Route pour obtenir les possessions
 app.get('/possession', (req, res) => {
-  res.json(possessions);
+  const data = readData();
+  res.json(data[1].data.possessions);
 });
 
+// Route pour ajouter une possession
+app.post('/possession', (req, res) => {
+  const newPossession = req.body;
+  const data = readData();
+  data[1].data.possessions.push(newPossession);
+  writeData(data);
+  res.status(201).json(newPossession); // Répond avec le nouvel objet ajouté
+});
+
+// Route pour mettre à jour une possession
 app.put('/possession/:id', (req, res) => {
   const { id } = req.params;
-  const updatedData = req.body;
-  const index = possessions.findIndex(possession => possession.id === id);
-
-  if (index === -1) {
-    return res.status(404).json({ error: 'Possession not found' });
+  const updatedPossession = req.body;
+  const data = readData();
+  const index = data[1].data.possessions.findIndex(p => p.id === id);
+  if (index !== -1) {
+    data[1].data.possessions[index] = updatedPossession;
+    writeData(data);
+    res.json(updatedPossession);
+  } else {
+    res.status(404).send('Possession non trouvée');
   }
-
-  possessions[index] = { ...possessions[index], ...updatedData };
-  res.json(possessions[index]);
 });
 
+// Route pour supprimer une possession
 app.delete('/possession/:id', (req, res) => {
   const { id } = req.params;
-  possessions = possessions.filter(possession => possession.id !== id);
-  res.status(204).end();
+  const data = readData();
+  const newPossessions = data[1].data.possessions.filter(p => p.id !== id);
+  if (newPossessions.length < data[1].data.possessions.length) {
+    data[1].data.possessions = newPossessions;
+    writeData(data);
+    res.status(204).send();
+  } else {
+    res.status(404).send('Possession non trouvée');
+  }
 });
 
-app.listen(3000, () => console.log('Server running on port 3000'));
+app.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
+});

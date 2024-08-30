@@ -1,12 +1,10 @@
-// src/components/CreatePossession.jsx
-
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import '../styles.css'; // Assurez-vous d'importer le fichier CSS
+import '../styles.css'; 
 
-const Create = () => {
+const CreatePossession = () => {
   const [formData, setFormData] = useState({
     libelle: '',
     valeur: '',
@@ -115,4 +113,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default CreatePossession;

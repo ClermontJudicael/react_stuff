@@ -1,14 +1,23 @@
 [
-  { "model": "Personne", "data": { "nom": "John Doe" } },
+  {
+    "model": "Personne",
+    "data": {
+      "nom": "John Doe"
+    }
+  },
   {
     "model": "Patrimoine",
     "data": {
-      "possesseur": { "nom": "John Doe" },
+      "possesseur": {
+        "nom": "John Doe"
+      },
       "possessions": [
         {
           "id": "1",
-          "possesseur": { "nom": "John Doe" },
-          "libelle": "MacBook Pro",
+          "possesseur": {
+            "nom": "John Doe"
+          },
+          "libelle": "MacBook",
           "valeur": 4000000,
           "dateDebut": "2023-12-25T00:00:00.000Z",
           "dateFin": null,
@@ -16,7 +25,9 @@
         },
         {
           "id": "2",
-          "possesseur": { "nom": "John Doe" },
+          "possesseur": {
+            "nom": "John Doe"
+          },
           "libelle": "Alternance",
           "valeur": 0,
           "dateDebut": "2022-12-31T21:00:00.000Z",
@@ -27,7 +38,9 @@
         },
         {
           "id": "3",
-          "possesseur": { "nom": "John Doe" },
+          "possesseur": {
+            "nom": "John Doe"
+          },
           "libelle": "Survie",
           "valeur": 0,
           "dateDebut": "2022-12-31T21:00:00.000Z",
@@ -37,17 +50,10 @@
           "valeurConstante": -300000
         },
         {
-          "id": "4",
-          "possesseur": { "nom": "John Doe" },
-          "libelle": "MacBook Pro",
-          "valeur": 4000000,
-          "dateDebut": "2023-12-25T00:00:00.000Z",
-          "dateFin": null,
-          "tauxAmortissement": 5
-        },
-        {
           "id": "5",
-          "possesseur": { "nom": "John Doe" },
+          "possesseur": {
+            "nom": "John Doe"
+          },
           "libelle": "Alternance",
           "valeur": 0,
           "dateDebut": "2022-12-31T21:00:00.000Z",
@@ -58,7 +64,9 @@
         },
         {
           "id": "6",
-          "possesseur": { "nom": "John Doe" },
+          "possesseur": {
+            "nom": "John Doe"
+          },
           "libelle": "Survie",
           "valeur": 0,
           "dateDebut": "2022-12-31T21:00:00.000Z",
@@ -66,6 +74,15 @@
           "tauxAmortissement": null,
           "jour": 2,
           "valeurConstante": -300000
+        },
+        {
+          "libelle": "TV",
+          "valeur": "249",
+          "dateDebut": "2023-08-15",
+          "dateFin": "2024-08-22",
+          "tauxAmortissement": "10",
+          "jour": "8",
+          "valeurConstante": "9"
         }
       ]
     }
