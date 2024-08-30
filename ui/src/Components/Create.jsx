@@ -38,7 +38,7 @@ const CreatePossession = () => {
   return (
     <div>
       <h2>Ajouter une Nouvelle Possession</h2>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} className='form'>
         <Form.Group controlId="formLibelle">
           <Form.Label>Libellé</Form.Label>
           <Form.Control

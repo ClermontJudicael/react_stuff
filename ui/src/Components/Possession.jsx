@@ -5,7 +5,7 @@ import Table from 'react-bootstrap/Table';
 import { Button, Form, Modal } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import '../styles.css'; 
+import './Possession.css'; 
 
 const Possession = () => {
   const [possessions, setPossessions] = useState([]);
@@ -60,6 +60,7 @@ const Possession = () => {
   };
 
   return (
+    
     <div>
       <h2>Liste des Possessions</h2>
       <Button variant="primary" onClick={() => navigate('/possession/create')}>

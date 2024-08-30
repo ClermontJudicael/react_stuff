@@ -7,13 +7,17 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
+import './Chart.css';
+import Header from './Header';
 
 ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
 
 const PossessionsChart = () => {
   const [dateDebut, setDateDebut] = useState(null);
   const [dateFin, setDateFin] = useState(null);
+  const [dateSpecific, setDateSpecific] = useState(null);
   const [valeurPatrimoine, setValeurPatrimoine] = useState(null);
+  const [valeurPatrimoineSpecific, setValeurPatrimoineSpecific] = useState(null);
 
   const generateDateRange = (startDate, endDate, intervalMonths) => {
     const dates = [];
@@ -84,6 +88,47 @@ const PossessionsChart = () => {
     }
   };
 
+  const calculatePatrimoineValueSpecific = async () => {
+    if (!dateSpecific) {
+      console.error('La date spécifique doit être sélectionnée.');
+      return;
+    }
+
+    try {
+      const response = await axios.get('http://localhost:3000/possession');
+      const possessionsData = response.data;
+
+      const possessionsInstances = possessionsData.map(p => {
+        if (p.possesseur && p.libelle && p.valeur !== undefined && p.dateDebut) {
+          return new Possession(
+            p.possesseur.nom,
+            p.libelle,
+            p.valeur,
+            new Date(p.dateDebut),
+            p.dateFin ? new Date(p.dateFin) : null,
+            p.tauxAmortissement || 0
+          );
+        } else {
+          console.error('Données manquantes pour la possession:', p);
+          return null;
+        }
+      }).filter(p => p !== null);
+
+      if (possessionsInstances.length === 0) {
+        console.error('Aucune possession valide trouvée.');
+        return;
+      }
+
+      const patrimoine = new Patrimoine(possessionsInstances[0]?.possesseur, possessionsInstances);
+
+      const value = patrimoine.getValeur(new Date(dateSpecific));
+      setValeurPatrimoineSpecific(value);
+
+    } catch (error) {
+      console.error('Erreur lors du calcul de la valeur du patrimoine:', error);
+    }
+  };
+
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -99,7 +144,9 @@ const PossessionsChart = () => {
   };
 
   return (
-    <div style={{ width: '80vw', height: '60vh', margin: '0 auto' }}>
+  
+    <div style={{ width: '60vw', height: '100vh', margin: '0 auto' }} className='test'>
+
       <Row className="my-4">
         <Col>
           <Form.Group>
@@ -127,16 +174,45 @@ const PossessionsChart = () => {
 
       <Row className="my-4">
         <Col>
-          <Button variant="success" onClick={calculatePatrimoineValue}>
-            Validates
+          <Button onClick={calculatePatrimoineValue}>
+            Afficher la Chart
           </Button>
         </Col>
       </Row>
 
-      {valeurPatrimoine && (
-        <Line data={valeurPatrimoine} options={options} />
+      <Row className="my-4">
+        <Col>
+          <Form.Group>
+            <Form.Label>Date Spécifique</Form.Label>
+            <DatePicker
+              selected={dateSpecific}
+              onChange={date => setDateSpecific(date)}
+              className="form-control"
+              placeholderText="Sélectionner la date spécifique"
+            />
+          </Form.Group>
+        </Col>
+        <Col>
+          <Button variant="primary" onClick={calculatePatrimoineValueSpecific}>
+            Calculer Valeur à la Date
+          </Button>
+        </Col>
+      </Row>
+
+      {valeurPatrimoineSpecific !== null && (
+        <div className="my-4">
+          <h4>Valeur du Patrimoine à la Date Spécifique :</h4>
+          <p>{valeurPatrimoineSpecific}</p>
+        </div>
       )}
+
+      <section>
+        {valeurPatrimoine && (
+        <Line data={valeurPatrimoine} options={options} />
+        )}
+      </section>
     </div>
+     
   );
 };
 

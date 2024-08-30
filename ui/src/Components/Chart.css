@@ -1,0 +1,112 @@
+*{
+    background-color: white;
+    color: black;
+}
+
+h1{
+    margin: 10%;
+    top: 0;
+}
+.test{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    right: 0;
+}
+
+.my-4 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3%;
+}
+
+section {
+    width: 80vw;
+    height: 60vh;
+    right: 0;
+}
+
+
+
+/* Applique à tous les boutons */
+button, .btn {
+    background-color: #007bff; /* Bleu par défaut pour les boutons */
+    color: white;              /* Texte blanc */
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Changer la couleur au survol */
+  button:hover, .btn:hover {
+    background-color: #0056b3; /* Une nuance plus foncée de bleu */
+  }
+  
+  /* Si vous voulez des boutons verts pour la validation */
+  .btn-success {
+    background-color: #28a745;
+  }
+  
+  .btn-success:hover {
+    background-color: #218838;
+  }
+  
+/* Conteneur principal du DatePicker */
+.react-datepicker-wrapper {
+    width: 70%;
+  }
+  
+  /* Champ d'entrée du DatePicker */
+  .react-datepicker__input-container input {
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s ease-in-out;
+  }
+  
+  /* Changement de la couleur de la bordure au focus */
+  .react-datepicker__input-container input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  /* Calendrier */
+  .react-datepicker-popper {
+    z-index: 9999; /* Assure que le calendrier est au-dessus des autres éléments */
+  }
+  
+  /* Fond du calendrier */
+  .react-datepicker__header {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  /* Style des jours dans le calendrier */
+  .react-datepicker__day--selected, .react-datepicker__day--keyboard-selected {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .react-datepicker__day:hover {
+    background-color: #0056b3;
+    color: white;
+  }
+  
+  /* Boutons pour naviguer dans les mois */
+  .react-datepicker__navigation {
+    top: 10px;
+    line-height: 1.5;
+  }
+  

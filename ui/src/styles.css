@@ -1,3 +1,5 @@
+
+
 /* styles.css */
 .table-custom {
     border: 2px solid white; /* Bordure blanche autour de la table */
@@ -20,4 +22,10 @@
   h2 {
     margin-bottom: 2rem; /* Espacement sous le titre */
   }
-  
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

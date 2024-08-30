@@ -1,21 +1,26 @@
+// App.jsx
 import React from 'react';
-import { Link } from 'react-router-dom';
-import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import Header from './Components/Header';
+import Patrimoine from './Components/Patrimoine';
+import Possession from './Components/Possession';
+import Create from './Components/Create';
+import PossessionUpdate from './Components/Update_Possession';
+import './App.css'; 
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <nav>
-        <ul>
-          <li><Link to="/patrimoine">Patrimoine</Link></li>
-          <li><Link to="/possession">Possession</Link></li>
-        </ul>
-      </nav>
-      <main>
-        <h1>Welcome to the App</h1>
-      </main>
+    <div>
+      <Header /> {/* Le Header sera affiché sur toutes les pages */}
+      <Routes>
+        <Route path="/patrimoine" element={<Patrimoine />} />
+        <Route path="/possession" element={<Possession />} />
+        <Route path="/possession/create" element={<Create />} />
+        <Route path="/possession/:libelle/update" element={<PossessionUpdate />} />
+        {/* Ajoutez d'autres routes ici si nécessaire */}
+      </Routes>
     </div>
   );
-}
+};
 
 export default App;
