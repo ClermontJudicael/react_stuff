@@ -5,7 +5,6 @@ import Table from 'react-bootstrap/Table';
 import { Button, Form, Modal } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './Possession.css'; 
 
 const Possession = () => {
   const [possessions, setPossessions] = useState([]);
@@ -32,7 +31,7 @@ const Possession = () => {
         console.error('Erreur lors de la suppression des données:', error);
       });
   };
-  
+
   const handleEdit = (possession) => {
     setEditData({ ...possession, id: possession.id }); // Assurez-vous que l'id est bien défini
     setShowModal(true);
@@ -50,25 +49,6 @@ const Possession = () => {
         console.error('Erreur lors de la mise à jour des données:', error);
       });
   };
-  
-  // const handleEdit = (possession) => {
-  //   setEditData(possession);
-  //   setShowModal(true);
-  // };
-
-
-  // const handleSaveChanges = () => {
-  //   axios.put(`http://localhost:3000/possession/${editData.id}`, editData)
-  //     .then(() => {
-  //       setPossessions(possessions.map(possession =>
-  //         possession.id === editData.id ? editData : possession
-  //       ));
-  //       setShowModal(false);
-  //     })
-  //     .catch(error => {
-  //       console.error('Erreur lors de la mise à jour des données:', error);
-  //     });
-  // };
 
   const handleChange = (e) => {
     const { name, value } = e.target;

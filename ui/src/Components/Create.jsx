@@ -13,7 +13,8 @@ const CreatePossession = () => {
     dateFin: '',
     tauxAmortissement: '',
     jour: '',
-    valeurConstante: ''
+    valeurConstante: '',
+    type: '' // Ajouter le type dans le state
   });
   const navigate = useNavigate(); // Hook pour la navigation
 
@@ -112,6 +113,21 @@ const CreatePossession = () => {
             value={formData.valeurConstante}
             onChange={handleChange}
           />
+        </Form.Group>
+        <Form.Group controlId="formType">
+          <Form.Label>Type</Form.Label>
+          <Form.Control
+            as="select"
+            name="type"
+            value={formData.type}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Choisir un type</option>
+            <option value="Materiel">Materiel</option>
+            <option value="Flux">Flux</option>
+            <option value="Argent">Argent</option>
+          </Form.Control>
         </Form.Group>
         <Button variant="primary" type="submit" className="mt-3">
           Valider

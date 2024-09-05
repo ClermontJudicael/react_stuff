@@ -8,7 +8,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import './Chart.css';
-import Header from './Header';
 
 ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
 
@@ -44,19 +43,46 @@ const PossessionsChart = () => {
 
       const possessionsInstances = possessionsData.map(p => {
         if (p.possesseur && p.libelle && p.valeur !== undefined && p.dateDebut) {
-          return new Possession(
-            p.possesseur.nom,
-            p.libelle,
-            p.valeur,
-            new Date(p.dateDebut),
-            p.dateFin ? new Date(p.dateFin) : null,
-            p.tauxAmortissement || 0
-          );
+          switch (p.type) {
+            case 'Argent':
+              return new Argent(
+                p.possesseur.nom,
+                p.libelle,
+                p.valeur,
+                new Date(p.dateDebut),
+                p.dateFin ? new Date(p.dateFin) : null,
+                p.tauxAmortissement || 0,
+                p.type
+              );
+            case 'BienMateriel':
+              return new BienMateriel(
+                p.possesseur.nom,
+                p.libelle,
+                p.valeur,
+                new Date(p.dateDebut),
+                p.dateFin ? new Date(p.dateFin) : null,
+                p.tauxAmortissement || 0
+              );
+            case 'Flux':
+              return new Flux(
+                p.possesseur.nom,
+                p.libelle,
+                p.valeur,
+                new Date(p.dateDebut),
+                p.dateFin ? new Date(p.dateFin) : null,
+                p.tauxAmortissement || 0,
+                p.jour || 1 // Utiliser une valeur par défaut pour jour si non fourni
+              );
+            default:
+              console.error('Type de possession inconnu:', p.type);
+              return null;
+          }
         } else {
           console.error('Données manquantes pour la possession:', p);
           return null;
         }
       }).filter(p => p !== null);
+      
 
       if (possessionsInstances.length === 0) {
         console.error('Aucune possession valide trouvée.');

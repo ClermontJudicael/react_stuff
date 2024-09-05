@@ -6,6 +6,7 @@
       "possesseur": { "nom": "John Doe" },
       "possessions": [
         {
+          "type": "Materiel",
           "possesseur": { "nom": "John Doe" },
           "libelle": "MacBook Pro",
           "valeur": 4000000,
@@ -14,6 +15,7 @@
           "tauxAmortissement": 5
         },
         {
+          "type": "Argent",
           "possesseur": { "nom": "John Doe" },
           "libelle": "Alternance",
           "valeur": 0,
@@ -24,6 +26,7 @@
           "valeurConstante": 500000
         },
         {
+          "type": "Flux",
           "possesseur": { "nom": "John Doe" },
           "libelle": "Survie",
           "valeur": 0,
@@ -34,6 +37,7 @@
           "valeurConstante": -300000
         },
         {
+          "type": "Materiel",
           "possesseur": { "nom": "John Doe" },
           "libelle": "MacBook Pro",
           "valeur": 4000000,
