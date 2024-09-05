@@ -51,9 +51,9 @@ app.put('/possession/:id', (req, res) => {
   const data = readData();
   const index = data[1].data.possessions.findIndex(p => p.id === id);
   if (index !== -1) {
-    data[1].data.possessions[index] = updatedPossession;
+    data[1].data.possessions[index] = { ...data[1].data.possessions[index], ...updatedPossession };
     writeData(data);
-    res.json(updatedPossession);
+    res.json(data[1].data.possessions[index]);
   } else {
     res.status(404).send('Possession non trouvée');
   }

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import '../styles.css'; 
+import { v4 as uuidv4 } from 'uuid'; // Importer uuid
+import '../styles.css';
 
 const CreatePossession = () => {
   const [formData, setFormData] = useState({
@@ -26,7 +27,14 @@ const CreatePossession = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3000/possession', formData)
+
+    // Ajouter un identifiant unique à la possession
+    const newPossession = {
+      id: uuidv4(), // Générer un ID unique
+      ...formData
+    };
+
+    axios.post('http://localhost:3000/possession', newPossession)
       .then(() => {
         navigate('/possession'); // Redirige vers la page de liste après l'ajout
       })
