@@ -29,6 +29,7 @@ const writeData = (data) => {
   fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2));
 };
 
+
 // Route pour obtenir les possessions
 app.get('/possession', (req, res) => {
   const data = readData();
@@ -44,6 +45,11 @@ app.post('/possession', (req, res) => {
   res.status(201).json(newPossession); // Répond avec le nouvel objet ajouté
 });
 
+// close possession
+app.patch('/possession/:libelle/close', (req, res) => {
+  let updatedPossession = req.body;
+  
+})
 // Route pour mettre à jour une possession
 app.put('/possession/:id', (req, res) => {
   const { id } = req.params;

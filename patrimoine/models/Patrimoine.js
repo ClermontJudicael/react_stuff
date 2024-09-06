@@ -1,3 +1,4 @@
+import Possession from './possessions/Possession';
 export default class Patrimoine {
   constructor(possesseur, possessions) {
     this.possesseur = possesseur;
@@ -7,7 +8,7 @@ export default class Patrimoine {
   getValeur(date) {
     let result = 0;
     for (const item of this.possessions) {
-      result += item.getValeur(date);
+      result += item.getValeurPossession(date);
     }
     return result;
   }

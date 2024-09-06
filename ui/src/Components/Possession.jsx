@@ -32,8 +32,9 @@ const Possession = () => {
       });
   };
 
+
   const handleEdit = (possession) => {
-    setEditData({ ...possession, id: possession.id }); // Assurez-vous que l'id est bien défini
+    setEditData({ ...possession, id: possession.id }); 
     setShowModal(true);
   };
   
@@ -57,6 +58,26 @@ const Possession = () => {
       [name]: value
     }));
   };
+
+  const handleCloturer = (possession) => {
+    const today = new Date().toISOString().split('T')[0]; // Format YYYY-MM-DD
+  
+    const updatedPossession = {
+      ...possession,
+      dateFin: today
+    };
+  
+    axios.put(`http://localhost:3000/possession/${possession.id}`, updatedPossession)
+      .then(() => {
+        setPossessions(possessions.map(p =>
+          p.id === possession.id ? updatedPossession : p
+        ));
+      })
+      .catch(error => {
+        console.error('Erreur lors de la mise à jour de la date de fin:', error);
+      });
+  };
+  
 
   return (
     
@@ -94,6 +115,9 @@ const Possession = () => {
                 </Button>
                 <Button variant="danger" onClick={() => handleDelete(possession.id)}>
                   Supprimer
+                </Button>
+                <Button variant="danger" onClick={() => handleCloturer(possession)}>
+                  Clotturer
                 </Button>
               </td>
             </tr>

@@ -8,6 +8,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import './Chart.css';
+import Header from './Header';
 
 ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
 
@@ -39,50 +40,24 @@ const PossessionsChart = () => {
 
     try {
       const response = await axios.get('http://localhost:3000/possession');
+      console.log("response: ",response);
       const possessionsData = response.data;
 
       const possessionsInstances = possessionsData.map(p => {
         if (p.possesseur && p.libelle && p.valeur !== undefined && p.dateDebut) {
-          switch (p.type) {
-            case 'Argent':
-              return new Argent(
-                p.possesseur.nom,
-                p.libelle,
-                p.valeur,
-                new Date(p.dateDebut),
-                p.dateFin ? new Date(p.dateFin) : null,
-                p.tauxAmortissement || 0,
-                p.type
-              );
-            case 'BienMateriel':
-              return new BienMateriel(
-                p.possesseur.nom,
-                p.libelle,
-                p.valeur,
-                new Date(p.dateDebut),
-                p.dateFin ? new Date(p.dateFin) : null,
-                p.tauxAmortissement || 0
-              );
-            case 'Flux':
-              return new Flux(
-                p.possesseur.nom,
-                p.libelle,
-                p.valeur,
-                new Date(p.dateDebut),
-                p.dateFin ? new Date(p.dateFin) : null,
-                p.tauxAmortissement || 0,
-                p.jour || 1 // Utiliser une valeur par défaut pour jour si non fourni
-              );
-            default:
-              console.error('Type de possession inconnu:', p.type);
-              return null;
-          }
+          return new Possession(
+            p.possesseur.nom,
+            p.libelle,
+            p.valeur,
+            new Date(p.dateDebut),
+            p.dateFin ? new Date(p.dateFin) : null,
+            p.tauxAmortissement || 0
+          );
         } else {
           console.error('Données manquantes pour la possession:', p);
           return null;
         }
       }).filter(p => p !== null);
-      
 
       if (possessionsInstances.length === 0) {
         console.error('Aucune possession valide trouvée.');
@@ -116,7 +91,6 @@ const PossessionsChart = () => {
 
   const calculatePatrimoineValueSpecific = async () => {
     if (!dateSpecific) {
-      console.error('La date spécifique doit être sélectionnée.');
       return;
     }
 
@@ -139,14 +113,16 @@ const PossessionsChart = () => {
           return null;
         }
       }).filter(p => p !== null);
-
+      //console.log("possession instance: ",possessionsInstances);
       if (possessionsInstances.length === 0) {
         console.error('Aucune possession valide trouvée.');
         return;
       }
 
+      // create an instance of patrimoine
       const patrimoine = new Patrimoine(possessionsInstances[0]?.possesseur, possessionsInstances);
-
+      //console.log(patrimoine.possessions[3].libelle);
+      //console.log(Object.values(patrimoine.possessions[3])[5]);
       const value = patrimoine.getValeur(new Date(dateSpecific));
       setValeurPatrimoineSpecific(value);
 

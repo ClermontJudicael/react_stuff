@@ -28,7 +28,7 @@ describe("Test about salary evaluation", () => {
             0, 
             3);
 
-        assert.equal(salary.getValeur(new Date("2024-3-3")), 0);
+        assert.equal(salary.getValeuPossession(new Date("2024-3-3")), 0);
 
     });
 
@@ -42,7 +42,7 @@ describe("Test about salary evaluation", () => {
             0, 
             4);
 
-        assert.equal(salary.getValeur(new Date("2024-5-3")), 5000);
+        assert.equal(salary.getValeuPossession(new Date("2024-5-3")), 5000);
     });
 
     it("should return 2_400_000", () => {
@@ -55,7 +55,7 @@ describe("Test about salary evaluation", () => {
             0, 
             15);
 
-        assert.equal(salary.getValeur(new Date("2024-6-14")), 1_800_000);
+        assert.equal(salary.getValeuPossession(new Date("2024-6-14")), 1_800_000);
     });
 })
 
@@ -74,7 +74,7 @@ describe("Test about spending evaluation", () => {
             0, 
             1);
 
-        assert.equal(spending.getValeur(new Date("2024-3-3")), 0);
+        assert.equal(spending.getValeuPossession(new Date("2024-3-3")), 0);
     })
 
     it("should return -240_000", () => {
@@ -87,7 +87,7 @@ describe("Test about spending evaluation", () => {
             0, 
             2);
 
-        assert.equal(spending.getValeur(new Date("2024-4-6")), -120_000);
+        assert.equal(spending.getValeuPossession(new Date("2024-4-6")), -120_000);
     });
 })
 
@@ -105,7 +105,7 @@ describe("Test about possession increasing ration :", () => {
             10,
         );
 
-        assert.equal(computer.getValeur(new Date("2025-3-3")), 90_000);
+        assert.equal(computer.getValeurPossession(new Date("2025-3-3")), 90_000);
     })
 
     it('should return 95_000', () => {
@@ -117,7 +117,7 @@ describe("Test about possession increasing ration :", () => {
             null, 
             10);
 
-        assert.equal(computer.getValeur(new Date("2024-9-3")), 95_000);
+        assert.equal(computer.getValeurPossession(new Date("2024-9-3")), 95_000);
     });
 
     it ('should return 220_000', () => {
@@ -130,11 +130,11 @@ describe("Test about possession increasing ration :", () => {
             -10,
         TYPE_ARGENT.Epargne);
 
-        assert.equal(savingsAccount.getValeur(new Date("2025-3-3")), 220_000)
+        assert.equal(savingsAccount.getValeuPossession(new Date("2025-3-3")), 220_000)
     })
 })
 
-describe("A test for calculating the total value of all possessions using Patrimoine.getValeur", ()=>{
+describe("A test for calculating the total value of all possessions using Patrimoine.getValeuPossession", ()=>{
   it("it should return 3855128.7671232875", ()=>{
     const Ilo = new Personne("Ilo");
     const ordinateur = new Possession(Ilo,"ordinateur",2_000_000,new Date("2021-05-10"),null,10);
@@ -146,7 +146,7 @@ describe("A test for calculating the total value of all possessions using Patrim
     const patrimoine = new Patrimoine(Ilo, possessions)
 
     const date = new Date("2024-8-8");
-    const result = ordinateur.getValeur(date) + compteEpargne.getValeur(date) + salary.getValeur(date) + spending.getValeur(date)
-    assert.equal(patrimoine.getValeur(date), result)
+    const result = ordinateur.getValeurPossession(date) + compteEpargne.getValeuPossession(date) + salary.getValeuPossession(date) + spending.getValeuPossession(date)
+    assert.equal(patrimoine.getValeuPossession(date), result)
   })
 })
