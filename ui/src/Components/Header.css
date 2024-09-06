@@ -1,6 +1,5 @@
 /* Header.css */
 header {
-    background-color: white;
     padding: 10px;
     position: fixed; /* Fixe la position en haut de la page */
     top: 0; /* Positionne le header en haut */
@@ -9,29 +8,37 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 10vh; /* Occupe toute la largeur de la page */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Optionnel : ajoute une ombre pour un effet de profondeur */
-    z-index: 1000; /* Assure que le header reste au-dessus des autres éléments */
+    height: 10vh; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+    z-index: 1000;
   }
   
   nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    display: flex; /* Utilise flexbox pour aligner les éléments horizontalement */
+    background-color: #f8f9fa;
+    display: flex;
   }
   
   nav ul li {
     margin-right: 10px;
+    color: black;
   }
   
   nav ul li a {
     text-decoration: none;
-    color: #007bff;
+    background-color: #007bff;
+    border-radius: 4px;
+    color: rgb(255, 255, 255) !important;
     padding: 8px 16px; /* Ajoute du padding pour rendre les liens plus cliquables */
   }
   
   nav ul li a:hover {
     text-decoration: underline;
   }
-  
+
+  .homepage {
+    background-color: red ;
+    margin-right: 100%;
+  }

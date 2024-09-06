@@ -12,6 +12,9 @@ const App = () => {
   return (
     <div>
       <Header /> {/* Le Header sera affiché sur toutes les pages */}
+      <div className="app-banner">
+        <h1>Hello Hello !!!</h1>
+      </div>
       <Routes>
         <Route path="/patrimoine" element={<Patrimoine />} />
         <Route path="/possession" element={<Possession />} />
