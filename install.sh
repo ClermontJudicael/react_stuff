@@ -8,6 +8,6 @@ npm install --save-dev nodemon
 
 cd ../ui/
 echo "Dependencies for UI..."
-npm install react-bootstrap bootstrap react-datepicker react-dom axios chart.js react-chartjs-2
+npm install react-bootstrap bootstrap react-datepicker react-dom axios chart.js react-chartjs-2 uuid
 npm install --save-dev concurrently
 echo "Dependencies inslalled"
