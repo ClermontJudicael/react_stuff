@@ -30,7 +30,7 @@ const usePossessionForm = (navigate) => {
       ...formData
     };
 
-    axios.post('http://localhost:3000/possession', newPossession)
+    axios.post(`${import.meta.env.VITE_API_UR}/possession`, newPossession)
       .then(() => {
         navigate('/possession'); // Redirige vers la page de liste après l'ajout
       })

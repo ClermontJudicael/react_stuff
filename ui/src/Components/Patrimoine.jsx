@@ -8,7 +8,7 @@ const Patrimoine = () => {
   const [possessions, setPossessions] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3000/possession')
+    axios.get(`${import.meta.env.VITE_API_UR}/possession`)
       .then(response => setPossessions(response.data))
       .catch(error => console.error('Erreur lors de la récupération des données:', error));
   }, []);

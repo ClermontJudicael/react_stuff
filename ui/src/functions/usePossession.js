@@ -8,7 +8,7 @@ export const usePossession = () => {
   const [editData, setEditData] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:3000/possession')
+    axios.get(`${import.meta.env.VITE_API_UR}/possession`)
       .then(response => {
         setPossessions(response.data);
       })
@@ -18,7 +18,7 @@ export const usePossession = () => {
   }, []);
 
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:3000/possession/${id}`)
+    axios.delete(`${import.meta.env.VITE_API_UR}/possession/${id}`)
       .then(() => {
         setPossessions(possessions.filter(possession => possession.id !== id));
       })
@@ -33,7 +33,7 @@ export const usePossession = () => {
   };
 
   const handleSaveChanges = () => {
-    axios.put(`http://localhost:3000/possession/${editData.id}`, editData)
+    axios.put(`${import.meta.env.VITE_API_UR}/possession/${editData.id}`, editData)
       .then(() => {
         setPossessions(possessions.map(possession =>
           possession.id === editData.id ? editData : possession
@@ -61,7 +61,7 @@ export const usePossession = () => {
       dateFin: today
     };
 
-    axios.put(`http://localhost:3000/possession/${possession.id}`, updatedPossession)
+    axios.put(`${import.meta.env.VITE_API_UR}/${possession.id}`, updatedPossession)
       .then(() => {
         setPossessions(possessions.map(p =>
           p.id === possession.id ? updatedPossession : p

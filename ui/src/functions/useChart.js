@@ -27,7 +27,7 @@ export const usePossessionsChart = () => {
     }
 
     try {
-      const response = await axios.get('http://localhost:3000/possession');
+      const response = await axios.get(`${import.meta.env.VITE_API_UR}/possession`);
       const possessionsData = response.data;
 
       const possessionsInstances = possessionsData.map(p => {
@@ -80,7 +80,7 @@ export const usePossessionsChart = () => {
     }
 
     try {
-      const response = await axios.get('http://localhost:3000/possession');
+      const response = await axios.get(`${import.meta.env.VITE_API_UR}/possession`);
       const possessionsData = response.data;
 
       const possessionsInstances = possessionsData.map(p => {
