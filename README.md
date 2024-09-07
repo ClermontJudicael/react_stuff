@@ -13,4 +13,4 @@ chmod +x install.sh
 npm start
 ```
 
-You can change .venv to __http://localhosy:3000__ for locat test
+You can change .venv to _http://localhost:3000_ for locat test
